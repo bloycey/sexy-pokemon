@@ -1,0 +1,6 @@
+{
+	"name": "updateRanking",
+	"version": "1.0.0",
+	"main": "updateRanking.js",
+	"license": "MIT"
+}
