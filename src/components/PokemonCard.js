@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-import { pad } from "../utils/utils";
+
+const pad = (n, width, z) => {
+	z = z || "0";
+	n = n + "";
+	return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+};
 
 const PokemonCard = ({ id, name }) => {
 	const [pokeImage, setPokeImage] = useState("");
