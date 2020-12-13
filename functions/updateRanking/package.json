@@ -2,5 +2,9 @@
 	"name": "updateRanking",
 	"version": "1.0.0",
 	"main": "updateRanking.js",
-	"license": "MIT"
+	"license": "MIT",
+	"dependencies": {
+		"elo-rating": "^1.0.1",
+		"mongodb": "^3.6.3"
+	}
 }

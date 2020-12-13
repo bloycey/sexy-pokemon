@@ -6,7 +6,7 @@ const pad = (n, width, z) => {
 	return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 };
 
-const PokemonCard = ({ id, name }) => {
+const PokemonCard = ({ id, name, postMatchResults, reInitPokemon }) => {
 	const [pokeImage, setPokeImage] = useState("");
 
 	useEffect(() => {
@@ -16,13 +16,19 @@ const PokemonCard = ({ id, name }) => {
 	});
 
 	const voteSexier = () => {
-		// Fire off vote to db
+		postMatchResults(id)
+			.then((data) => {
+				console.log("response data", data);
+				reInitPokemon();
+			})
+			.catch((err) => console.log(err));
 	};
 
 	return (
-		<div onClick={voteSexier}>
+		<div>
 			<h2>{name}</h2>
 			<img src={pokeImage} alt={name} />
+			<button onClick={voteSexier}>Vote Sexier</button>
 		</div>
 	);
 };
