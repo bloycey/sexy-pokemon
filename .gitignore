@@ -26,5 +26,6 @@ yarn-error.log*
 .netlify
 
 functions/updateRanking/node_modules/
+function/getRankings/node_modules/
 
 .env
