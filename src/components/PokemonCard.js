@@ -13,7 +13,7 @@ const PokemonCard = ({ id, name, postMatchResults, reInitPokemon }) => {
 		import(`../data/images/${pad(id, 3)}.png`).then((image) => {
 			setPokeImage(image.default);
 		});
-	}, []);
+	}, [id]);
 
 	const voteSexier = () => {
 		postMatchResults(id)
