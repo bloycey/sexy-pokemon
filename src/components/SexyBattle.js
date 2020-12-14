@@ -15,7 +15,8 @@ const pokemonRankings = pokemonJson.map((pokemon) => {
 
 console.log(JSON.stringify(pokemonRankings));
 
-const buildPostMatchResults = (pokemon) => async (winner) => {
+const buildPostMatchResults = (pokemon, callback) => async (winner) => {
+	callback(true);
 	const res = await fetch(
 		`${process.env.REACT_APP_SERVERLESS_BASE}/updateRanking`,
 		{
@@ -29,15 +30,21 @@ const buildPostMatchResults = (pokemon) => async (winner) => {
 			}),
 		}
 	);
+	callback(false);
 	const json = await res.json();
 	return json;
 };
 
 const SexyBattle = () => {
 	const [pokemon, setPokemon] = useState(getRandomUniquePokemonPair());
+	const [isLoading, setIsLoading] = useState(false);
 	const reInitPokemon = () => setPokemon(getRandomUniquePokemonPair());
 
-	const postMatchResults = buildPostMatchResults(pokemon);
+	const postMatchResults = buildPostMatchResults(pokemon, setIsLoading);
+
+	if (isLoading) {
+		return "is loading";
+	}
 
 	return (
 		<div>

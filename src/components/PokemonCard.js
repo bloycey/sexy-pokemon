@@ -13,7 +13,7 @@ const PokemonCard = ({ id, name, postMatchResults, reInitPokemon }) => {
 		import(`../data/images/${pad(id, 3)}.png`).then((image) => {
 			setPokeImage(image.default);
 		});
-	});
+	}, []);
 
 	const voteSexier = () => {
 		postMatchResults(id)
@@ -23,10 +23,6 @@ const PokemonCard = ({ id, name, postMatchResults, reInitPokemon }) => {
 			})
 			.catch((err) => console.log(err));
 	};
-
-	if (!pokeImage) {
-		return "Loading...";
-	}
 
 	return (
 		<div>
