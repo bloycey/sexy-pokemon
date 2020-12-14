@@ -6,6 +6,8 @@ const images = importAll(
 	require.context("../data/images", false, /\.(png|jpe?g|svg)$/)
 );
 
+console.log(images);
+
 const PokemonCard = ({ id, name, postMatchResults, reInitPokemon }) => {
 	const voteSexier = () => {
 		postMatchResults(id)
@@ -19,7 +21,7 @@ const PokemonCard = ({ id, name, postMatchResults, reInitPokemon }) => {
 	return (
 		<div>
 			<h2>{name}</h2>
-			<img src={images[id].default} alt={name} />
+			<img src={images[id - 1].default} alt={name} />
 			<button onClick={voteSexier}>Vote Sexier</button>
 		</div>
 	);

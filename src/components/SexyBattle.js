@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { getRandomUniquePokemonPair } from "../utils/utils";
 import PokemonCard from "./PokemonCard";
 
-//	fetch("https://sexy-pokemon.netlify.app/.netlify/functions/updateRanking", {
-
 import pokemonJson from "../data/pokemon.json";
 
 const pokemonRankings = pokemonJson.map((pokemon) => {
