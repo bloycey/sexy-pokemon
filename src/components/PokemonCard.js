@@ -1,20 +1,12 @@
-import { useState, useEffect } from "react";
+function importAll(r) {
+	return r.keys().map(r);
+}
 
-const pad = (n, width, z) => {
-	z = z || "0";
-	n = n + "";
-	return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
-};
+const images = importAll(
+	require.context("../data/images", false, /\.(png|jpe?g|svg)$/)
+);
 
 const PokemonCard = ({ id, name, postMatchResults, reInitPokemon }) => {
-	const [pokeImage, setPokeImage] = useState("");
-
-	useEffect(() => {
-		import(`../data/images/${pad(id, 3)}.png`).then((image) => {
-			setPokeImage(image.default);
-		});
-	}, [id]);
-
 	const voteSexier = () => {
 		postMatchResults(id)
 			.then((data) => {
@@ -27,7 +19,7 @@ const PokemonCard = ({ id, name, postMatchResults, reInitPokemon }) => {
 	return (
 		<div>
 			<h2>{name}</h2>
-			<img src={pokeImage} alt={name} />
+			<img src={images[id].default} alt={name} />
 			<button onClick={voteSexier}>Vote Sexier</button>
 		</div>
 	);
