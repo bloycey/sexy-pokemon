@@ -14,7 +14,7 @@ const getRankings = async () => {
 
 exports.handler = async function (event, context) {
 	const data = await getRankings();
-	console.log(data);
+	// console.log(data);
 
 	return {
 		statusCode: 200,

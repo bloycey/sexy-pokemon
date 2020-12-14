@@ -24,6 +24,10 @@ const PokemonCard = ({ id, name, postMatchResults, reInitPokemon }) => {
 			.catch((err) => console.log(err));
 	};
 
+	if (!pokeImage) {
+		return "Loading...";
+	}
+
 	return (
 		<div>
 			<h2>{name}</h2>

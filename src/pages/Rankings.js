@@ -42,7 +42,7 @@ const Rankings = () => {
 				{rankings
 					.sort((a, b) => b.ranking - a.ranking)
 					.map(({ name, ranking }) => (
-						<h2>
+						<h2 key={name}>
 							{name} - {ranking}
 						</h2>
 					))}

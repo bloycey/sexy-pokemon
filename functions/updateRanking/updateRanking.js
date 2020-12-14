@@ -2,6 +2,8 @@ const EloRating = require("elo-rating");
 
 exports.handler = async function (event, context) {
 	const body = JSON.parse(event.body);
+	const pokeZeroName = body.pokemon[0].name.english;
+	const pokeOneName = body.pokemon[1].name.english;
 
 	const ids = body.pokemon.map((pokemon) => pokemon.id);
 	const winner = body.winner;
@@ -37,11 +39,14 @@ exports.handler = async function (event, context) {
 			{ id: ids[1] },
 			{ $set: { ranking: pokeOneFinal } }
 		);
+		console.log(
+			`${pokeZeroName} (${ids[0]}) changed from ${pokeZeroOriginal.ranking} to ${pokeZeroFinal}. ${pokeOneName} (${ids[1]}) changed from ${pokeOneOriginal.ranking} to ${pokeOneFinal}`
+		);
 		client.close();
 	});
 
 	return {
 		statusCode: 200,
-		body: JSON.stringify({ message: body }),
+		body: JSON.stringify("Success"),
 	};
 };
