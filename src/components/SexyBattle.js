@@ -47,17 +47,19 @@ const SexyBattle = () => {
 	return (
 		<div>
 			<h1>BATTLE</h1>
+			<div style={{ display: 'flex'}}>
 			{pokemon.map((poke, index) => {
 				return (
 					<PokemonCard
-						id={poke.id}
-						name={poke.name.english}
-						postMatchResults={postMatchResults}
-						reInitPokemon={reInitPokemon}
-						key={index}
+					id={poke.id}
+					name={poke.name.english}
+					postMatchResults={postMatchResults}
+					reInitPokemon={reInitPokemon}
+					key={index}
 					/>
-				);
-			})}
+					);
+				})}
+			</div>
 			<button onClick={reInitPokemon}>New battle</button>
 		</div>
 	);
