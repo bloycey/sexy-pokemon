@@ -10,7 +10,7 @@ exports.handler = async function (event, context) {
 
 	const MongoClient = require("mongodb").MongoClient;
 	const uri = process.env.DB_URI;
-	const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true});
+	const client = new MongoClient(uri, { useNewUrlParser: true });
 
 	client.connect(async (err) => {
 		const db = await client.db("rankings");
