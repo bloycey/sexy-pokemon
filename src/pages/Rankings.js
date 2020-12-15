@@ -16,21 +16,13 @@ const Rankings = () => {
 	const [rankings, setRankings] = useState([]);
 	useEffect(() => {
 		const getRankings = async () => {
-			const res = await fetch(
-				`${process.env.REACT_APP_SERVERLESS_BASE}/getRankings`,
-				{
-					method: "POST",
-					headers: {
-						"content-type": "application/json",
-					},
-				}
-			);
+			const res = await fetch(`${process.env.REACT_APP_SERVERLESS_BASE}/pokemon`,);
 			const json = await res.json();
 			return json;
 		};
 		getRankings().then((response) => {
 			console.log(response);
-			const readableRankings = makeRankingsReadable(response.message);
+			const readableRankings = makeRankingsReadable(response);
 			setRankings(readableRankings);
 		});
 	}, []);

@@ -2,21 +2,9 @@ import { useState, useEffect } from "react";
 import { getRandomUniquePokemonPair } from "../utils/utils";
 import PokemonCard from "./PokemonCard";
 
-import pokemonJson from "../data/pokemon.json";
-
-const pokemonRankings = pokemonJson.map((pokemon) => {
-	return {
-		id: pokemon.id,
-		ranking: 1000,
-	};
-}, {});
-
-console.log(JSON.stringify(pokemonRankings));
-
-const buildPostMatchResults = (pokemon, callback) => async (winner) => {
-	callback(true);
+const buildPostMatchResults = (pokemon) => async (winner) => {
 	const res = await fetch(
-		`${process.env.REACT_APP_SERVERLESS_BASE}/updateRanking`,
+		`${process.env.REACT_APP_SERVERLESS_BASE}/pokemon`,
 		{
 			method: "POST",
 			headers: {
@@ -28,21 +16,14 @@ const buildPostMatchResults = (pokemon, callback) => async (winner) => {
 			}),
 		}
 	);
-	callback(false);
-	const json = await res.json();
-	return json;
+	return res;
 };
 
 const SexyBattle = () => {
 	const [pokemon, setPokemon] = useState(getRandomUniquePokemonPair());
-	const [isLoading, setIsLoading] = useState(false);
 	const reInitPokemon = () => setPokemon(getRandomUniquePokemonPair());
 
-	const postMatchResults = buildPostMatchResults(pokemon, setIsLoading);
-
-	if (isLoading) {
-		return "is loading";
-	}
+	const postMatchResults = buildPostMatchResults(pokemon);
 
 	return (
 		<div>

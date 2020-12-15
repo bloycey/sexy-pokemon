@@ -6,14 +6,12 @@ const images = importAll(
 	require.context("../data/images", false, /\.(png|jpe?g|svg)$/)
 );
 
-console.log(images);
-
 const PokemonCard = ({ id, name, postMatchResults, reInitPokemon }) => {
 	const voteSexier = () => {
+		reInitPokemon();
 		postMatchResults(id)
 			.then((data) => {
 				console.log("response data", data);
-				reInitPokemon();
 			})
 			.catch((err) => console.log(err));
 	};
