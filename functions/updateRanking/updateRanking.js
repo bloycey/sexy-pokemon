@@ -31,11 +31,11 @@ exports.handler = async function (event, context) {
 		const pokeZeroFinal = sexyResult.playerRating;
 		const pokeOneFinal = sexyResult.opponentRating;
 
-		await collection.updateOne(
+		collection.updateOne(
 			{ id: ids[0] },
 			{ $set: { ranking: pokeZeroFinal } }
 		);
-		await collection.updateOne(
+		collection.updateOne(
 			{ id: ids[1] },
 			{ $set: { ranking: pokeOneFinal } }
 		);
