@@ -41,7 +41,7 @@ const SexyBattle = () => {
 					);
 				})}
 			</div>
-			<button onClick={reInitPokemon}>New battle</button>
+			{/* <button onClick={reInitPokemon}>New battle</button> */}
 		</div>
 	);
 };
