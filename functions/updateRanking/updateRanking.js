@@ -24,11 +24,11 @@ const [pokeOneOriginal] = await collection
 	const pokeZeroFinal = sexyResult.playerRating;
 	const pokeOneFinal = sexyResult.opponentRating;
 
-	collection.updateOne(
+	await collection.updateOne(
 		{ id: ids[0] },
 		{ $set: { ranking: pokeZeroFinal } }
 	);
-	collection.updateOne(
+	await collection.updateOne(
 		{ id: ids[1] },
 		{ $set: { ranking: pokeOneFinal } }
 	);
