@@ -3,6 +3,38 @@ const MongoClient = require("mongodb").MongoClient;
 const MONGODB_URI = process.env.DB_URI;
 const pokemon = require("../../src/data/pokemon.json");
 
+let cachedDb = null;
+
+const connectToDatabase = async (uri) => {
+  if (cachedDb && cachedDb.serverConfig.isConnected()) return cachedDb;
+
+  const client = await MongoClient.connect(uri, {
+	useUnifiedTopology: true,
+	maxIdleTimeMS: 10000,
+	waitQueueTimeoutMS: 10000
+  });
+
+  cachedDb = client.db("rankings");
+
+  function cleanup () {
+	client.close( function () {
+	  console.log( "Closed out remaining connections.");
+	  // Close db connections, other chores, etc.
+	  process.exit();
+	});
+  
+	setTimeout( function () {
+	 console.error("Could not close connections in time, forcing shut down");
+	 process.exit(1);
+	}, 30*1000);
+  }
+  
+  process.on('SIGINT', cleanup);
+  process.on('SIGTERM', cleanup);
+
+  return cachedDb;
+};
+
 const queryDatabase = async (db) => {
   const pokemon = await db.collection("rankings").find({}).toArray();
 
@@ -54,38 +86,6 @@ module.exports.handler = async (event, context) => {
   // otherwise the connection will never complete, since
   // we keep the DB connection alive
   context.callbackWaitsForEmptyEventLoop = false;
-
-  let cachedDb = null;
-
-  const connectToDatabase = async (uri) => {
-	if (cachedDb) return cachedDb;
-  
-	const client = await MongoClient.connect(uri, {
-	  useUnifiedTopology: true,
-	  maxIdleTimeMS: 10000,
-	  waitQueueTimeoutMS: 10000
-	});
-  
-	cachedDb = client.db("rankings");
-  
-	function cleanup () {
-	  client.close( function () {
-		console.log( "Closed out remaining connections.");
-		// Close db connections, other chores, etc.
-		process.exit();
-	  });
-	
-	  setTimeout( function () {
-	   console.error("Could not close connections in time, forcing shut down");
-	   process.exit(1);
-	  }, 30*1000);
-	}
-	
-	process.on('SIGINT', cleanup);
-	process.on('SIGTERM', cleanup);
-  
-	return cachedDb;
-  };
 
   const db = await connectToDatabase(MONGODB_URI);
 
