@@ -1,15 +1,14 @@
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import Rankings from "./pages/Rankings";
-import GlobalStyles from "./styles/GlobalStyles";
+import Layout from "./components/Layout";
 
 const App = () => {
 	return (
-		<>
-		<GlobalStyles />
+		<Layout>
 		<Router>
 				<Switch>
-					<Route path="/rankings">
+					<Route path="/leaderboard">
 							<Rankings />
 					</Route>
 					<Route path="/">
@@ -17,7 +16,7 @@ const App = () => {
 					</Route>
 				</Switch>
 			</Router>
-		</>
+		</Layout>
 	);
 };
 

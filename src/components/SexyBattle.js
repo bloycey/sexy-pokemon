@@ -1,6 +1,30 @@
-import { useState, useEffect } from "react";
+import styled from "styled-components";
+import { useState } from "react";
 import { getRandomUniquePokemonPair } from "../utils/utils";
 import PokemonCard from "./PokemonCard";
+import SexiestWidget from "./SexiestWidget";
+
+const HomePanel = styled.div`
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 4rem;
+`
+
+const BattleWrapper = styled.div`
+	display: inline-flex;
+	justify-content: space-between;
+	flex: 1;
+
+	@media(min-width: 767px){
+		min-width: 600px;
+	}
+`;
+
+const WidgetWrapper = styled.div`
+	width: 350px;
+`
 
 const buildPostMatchResults = (pokemon) => async (winner) => {
 	const res = await fetch(
@@ -26,9 +50,8 @@ const SexyBattle = () => {
 	const postMatchResults = buildPostMatchResults(pokemon);
 
 	return (
-		<div>
-			<h1>BATTLE</h1>
-			<div style={{ display: 'flex'}}>
+		<HomePanel>
+			<BattleWrapper>
 			{pokemon.map((poke, index) => {
 				return (
 					<PokemonCard
@@ -40,9 +63,11 @@ const SexyBattle = () => {
 					/>
 					);
 				})}
-			</div>
-			{/* <button onClick={reInitPokemon}>New battle</button> */}
-		</div>
+			</BattleWrapper>
+			<WidgetWrapper>
+				<SexiestWidget />
+			</WidgetWrapper>
+		</HomePanel>
 	);
 };
 

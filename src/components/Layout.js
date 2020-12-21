@@ -1,9 +1,11 @@
 import styled from "styled-components";
+import 'normalize.css';
+
+import GlobalStyles from "../styles/GlobalStyles";
 
 export const Container = styled.div`
-	width: 100%;
-	padding-right: 15px;
-	padding-left: 15px;
+	padding-right: 16px;
+	padding-left: 16px;
 	margin-right: auto;
 	margin-left: auto;
 
@@ -30,4 +32,15 @@ export const Container = styled.div`
 	@media (min-width: 1600px) {
 		max-width: 1400px;
 	}
-`
+`;
+
+const Layout = ({ children }) => {
+	return (
+		<>
+			<GlobalStyles />
+			{children}
+		</>
+	)
+};
+
+export default Layout;

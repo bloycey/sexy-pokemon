@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Nav from "../components/Nav";
 import pokemon from "../data/pokemon.json";
 
 const makeRankingsReadable = (rawRankings) => {
@@ -29,6 +30,7 @@ const Rankings = () => {
 
 	return (
 		<div>
+			<Nav />
 			<h1>RankingsPAGE</h1>
 			<div>
 				{rankings
