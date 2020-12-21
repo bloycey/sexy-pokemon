@@ -11,11 +11,15 @@ const images = importAll(
 );
 
 const SexyCardHeading = styled.h4`
-	color: #ffffff;
+	color: var(--black);
 	font-size: 1.5rem;
 	margin: 0 0 0.5rem 0;
 	display: flex;
 	justify-content: space-between;
+
+	@media(min-width: 1200px){
+		color: #ffffff;
+	}
 
 	img {
 		margin-right: 3.5rem;
@@ -57,14 +61,19 @@ const SexiestImage = styled.div`
 	right: 0;
 	border-radius: 50%;
 	border: 4px solid var(--black);
-	width: 115px;
-	height: 115px;
+	width: 75px;
+	height: 75px;
 	overflow: visible;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	transform: translate(60%, -60%);
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+	@media(min-width: 1200px){
+		width: 115px;
+		height: 115px;
+	}
 
 	img {
 		width: 90%;

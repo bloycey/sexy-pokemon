@@ -6,7 +6,11 @@ const pokemon = require("../../src/data/pokemon.json");
 let cachedDb = null;
 
 const connectToDatabase = async (uri) => {
-  if (cachedDb && cachedDb.serverConfig.isConnected()) return cachedDb;
+	console.log("cachedDb", cachedDb);
+  if (cachedDb && cachedDb.serverConfig.isConnected()){
+	console.log("USING CACHED DB");
+	return cachedDb;
+  } 
 
   const client = await MongoClient.connect(uri, {
 	useUnifiedTopology: true,
@@ -78,7 +82,7 @@ const pushToDatabase = async (db, data) => {
 		{ $set: { ranking: pokeOneFinal } }
 	);
 
-	console.log(`${pokemon[ids[0] - 1].name.english} (${ids[0]}) changed from ${pokeZeroOriginal.ranking} to ${pokeZeroFinal}. ${pokemon[ids[1] - 1].name.english}(${ids[1]}) changed from ${pokeOneOriginal.ranking} to ${pokeOneFinal}`)
+	console.log(`${pokemon[ids[0] - 1].name.english} (${ids[0]}) changed from ${pokeZeroOriginal.ranking} to ${pokeZeroFinal}. ${pokemon[ids[1] - 1].name.english} (${ids[1]}) changed from ${pokeOneOriginal.ranking} to ${pokeOneFinal}`)
 	return { statusCode: 201 }
 };
 

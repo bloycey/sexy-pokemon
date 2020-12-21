@@ -23,7 +23,12 @@ const BattleWrapper = styled.div`
 `;
 
 const WidgetWrapper = styled.div`
-	width: 350px;
+	width: 90%;
+	max-width: 400px;
+
+	@media(min-width: 1200px){
+		width: 350px;
+	}
 `
 
 const buildPostMatchResults = (pokemon) => async (winner) => {
