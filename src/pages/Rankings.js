@@ -1,33 +1,11 @@
 import { useState, useEffect } from "react";
 import Nav from "../components/Nav";
 import pokemon from "../data/pokemon.json";
-
-const makeRankingsReadable = (rawRankings) => {
-	return rawRankings.map(({ id, ranking }) => {
-		const descriptivePokemon = pokemon.find((poke) => poke.id === id);
-		return {
-			id,
-			ranking,
-			name: descriptivePokemon.name.english,
-		};
-	});
-};
+import { getAndSetRankings } from "../utils/utils";
 
 const Rankings = () => {
 	const [rankings, setRankings] = useState([]);
-	useEffect(() => {
-		const getRankings = async () => {
-			const res = await fetch(`${process.env.REACT_APP_SERVERLESS_BASE}/pokemon`,);
-			const json = await res.json();
-			return json;
-		};
-		getRankings().then((response) => {
-			console.log(response);
-			const readableRankings = makeRankingsReadable(response);
-			setRankings(readableRankings);
-		});
-	}, []);
-
+	useEffect(() => getAndSetRankings(setRankings), []);
 	return (
 		<div>
 			<Nav />

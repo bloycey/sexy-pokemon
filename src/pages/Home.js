@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 import Hero from "../components/Hero";
 import { Container } from "../components/Layout";
@@ -12,6 +13,8 @@ const BattleOverlap = styled.div`
 		margin-top: -5rem;
 	}
 `;
+
+
 
 const Home = () => {
 	return (

@@ -15,3 +15,26 @@ export const getRandomUniquePokemonPair = () => {
 	}
 	return getRandomUniquePokemonPair();
 };
+
+const makeRankingsReadable = (rawRankings) => {
+	return rawRankings.map(({ id, ranking }) => {
+		const descriptivePokemon = pokemon.find((poke) => poke.id === id);
+		return {
+			id,
+			ranking,
+			name: descriptivePokemon.name.english,
+		};
+	});
+};
+
+export const getRankings = async () => {
+	const res = await fetch(`${process.env.REACT_APP_SERVERLESS_BASE}/pokemon`,);
+	const json = await res.json();
+	const readableRankings = makeRankingsReadable(json);
+	return readableRankings;
+};
+
+export const getAndSetRankings = async (setStateCallback) => {
+	const rankings = await getRankings();
+	setStateCallback(rankings);
+}

@@ -21,6 +21,7 @@ const Heading = styled.h1`
 
 	@media(min-width: 767px){
 		font-size: 4.5rem;
+		text-shadow: 0px 3px 0.367063px rgba(91, 11, 6, 0.87);
 	}
 `
 
