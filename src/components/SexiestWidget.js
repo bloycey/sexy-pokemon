@@ -22,12 +22,13 @@ const SexyCardHeading = styled.h4`
 	}
 
 	img {
-		margin-right: 3.5rem;
+		margin-right: 2.5rem;
 		cursor: pointer;
 		filter: invert(100%);
 
 		@media(min-width: 1200px){
 			filter: invert(0%);
+			margin-right: 3.5rem;
 		}
 		
 	}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
+import LeaderboardHero from "../components/LeaderboardHero";
 import Nav from "../components/Nav";
-import pokemon from "../data/pokemon.json";
 import { getAndSetRankings } from "../utils/utils";
 
 const Rankings = () => {
@@ -9,7 +9,7 @@ const Rankings = () => {
 	return (
 		<div>
 			<Nav />
-			<h1>RankingsPAGE</h1>
+			<LeaderboardHero />
 			<div>
 				{rankings
 					.sort((a, b) => b.ranking - a.ranking)

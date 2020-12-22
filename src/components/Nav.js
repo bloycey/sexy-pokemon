@@ -44,7 +44,7 @@ const Nav = () => {
 		<NavWrapper>
 			<ul>
 				{NavItems.map(({ title, url}) => (
-					<Li current={pathname === url}>
+					<Li current={pathname === url} key={title}>
 						<Link to={url}>
 							{title}
 						</Link>
