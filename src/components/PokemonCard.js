@@ -40,7 +40,6 @@ const PokeWrapper =styled.div`
 const VoteButton = styled.button`
 	width: 100%;
 	margin: 0 auto;
-	margin-bottom: 2rem;
 	border: 0;
 	border-left: 4px solid var(--red);
 	background-color: var(--black);
@@ -60,6 +59,7 @@ const VoteButton = styled.button`
 	}
 
 	@media(min-width: 767px){
+		margin-bottom: 2rem;
 		font-size: 24px;
 		span {
 			display: inline;

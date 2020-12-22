@@ -16,12 +16,12 @@ const TitleWrapper = styled.div`
 const Heading = styled.h1`
 	margin: 0;
 	color: #ffffff;
-	font-size: 28px;
+	font-size: 24px;
 	text-shadow: 0px 1.46825px 0.367063px rgba(91, 11, 6, 0.87);
 
 	span {
 		font-family: "Niconne", cursive;
-		font-size: 58px;
+		font-size: 45px;
 		font-weight: 500;
 
 		@media(min-width: 767px){
