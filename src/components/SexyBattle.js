@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useState } from "react";
-import { getRandomUniquePokemonPair } from "../utils/utils";
+import { useState, useEffect } from "react";
+import { getAndSetRankings, refreshRankings, getRandomUniquePokemonPair } from "../utils/utils";
 import PokemonCard from "./PokemonCard";
 import SexiestWidget from "./SexiestWidget";
 
@@ -50,7 +50,11 @@ const buildPostMatchResults = (pokemon) => async (winner) => {
 
 const SexyBattle = () => {
 	const [pokemon, setPokemon] = useState(getRandomUniquePokemonPair());
+	const [rankings, setRankings] = useState([]);
 	const reInitPokemon = () => setPokemon(getRandomUniquePokemonPair());
+	
+	useEffect(() => getAndSetRankings(setRankings), []);
+	const refresh = refreshRankings(setRankings);
 
 	const postMatchResults = buildPostMatchResults(pokemon);
 
@@ -60,17 +64,17 @@ const SexyBattle = () => {
 			{pokemon.map((poke, index) => {
 				return (
 					<PokemonCard
-					id={poke.id}
-					name={poke.name.english}
-					postMatchResults={postMatchResults}
-					reInitPokemon={reInitPokemon}
-					key={index}
+						id={poke.id}
+						name={poke.name.english}
+						postMatchResults={postMatchResults}
+						reInitPokemon={reInitPokemon}
+						key={index}
 					/>
 					);
 				})}
 			</BattleWrapper>
 			<WidgetWrapper>
-				<SexiestWidget />
+				<SexiestWidget rankings={rankings} refreshRankings={refresh} type="top" showRefresh={true} />
 			</WidgetWrapper>
 		</HomePanel>
 	);

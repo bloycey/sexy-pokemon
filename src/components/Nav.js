@@ -24,6 +24,11 @@ const Li = styled.li`
 		color: #ffffff;
 		text-transform: uppercase;
 		font-weight: 800;
+		font-size: 0.75rem;
+
+		@media(min-width: 767px){
+			font-size: 1rem;
+		}
 	}
 `;
 

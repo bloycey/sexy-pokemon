@@ -37,4 +37,9 @@ export const getRankings = async () => {
 export const getAndSetRankings = async (setStateCallback) => {
 	const rankings = await getRankings();
 	setStateCallback(rankings);
-}
+};
+
+export const refreshRankings = (setRankings) => () => {
+	setRankings([]);
+	getAndSetRankings(setRankings);
+};

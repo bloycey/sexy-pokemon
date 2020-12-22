@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import styled from "styled-components";
-import { getAndSetRankings } from "../utils/utils";
 import sync from "../img/sync.svg";
 import DotLoader from "react-spinners/DotLoader";
 
@@ -18,7 +17,7 @@ const SexyCardHeading = styled.h4`
 	justify-content: space-between;
 
 	@media(min-width: 1200px){
-		color: #ffffff;
+		color: ${props => props.dark ? 'var(--black)' : '#ffffff'};
 	}
 
 	img {
@@ -27,7 +26,7 @@ const SexyCardHeading = styled.h4`
 		filter: invert(100%);
 
 		@media(min-width: 1200px){
-			filter: invert(0%);
+			filter: ${props => props.dark ? 'invert(100%)' : 'invert(0%)'};
 			margin-right: 3.5rem;
 		}
 		
@@ -39,8 +38,8 @@ const SexyCard = styled.ol`
 	box-shadow: 1px 4px 4px 2px rgba(0, 0, 0, 0.24);
 	border-radius: 10px;
 	padding: 2.5rem 2rem 2rem;
-	font-size: 1.5rem;
 	margin-top: 0;
+	font-size: 1.25rem;
 	position: relative;
 
 	li {
@@ -52,7 +51,8 @@ const SexyCard = styled.ol`
 
 	h2 {
 		margin-top: 0;
-		margin-bottom: 0.5rem;
+		margin-bottom: 0;
+		font-size: 1.5rem;
 	}
 `;
 
@@ -94,38 +94,44 @@ const LoadingWrapper = styled.div`
 	height: 350px;
 `
 
-const SexiestWidget = () => {
-	const [rankings, setRankings] = useState([]);
-	const [sexiest, setSexiest] = useState();
-	useEffect(() => getAndSetRankings(setRankings), []);
-	useEffect(() => setSexiest(rankings[0]), [rankings]);
-	const refreshRankings = () => {
-		setRankings([]);
-		getAndSetRankings(setRankings);
-	}
-
+const SexiestWidget = ({ rankings, refreshRankings, type, dark=false, showRefresh=false  }) => {
 	const isLoading = rankings.length === 0;
+	const getRankings = type => {
+		const sortedRankings = rankings.sort((a, b) => b.ranking - a.ranking);
+		switch(type){
+			case 'top':
+				return sortedRankings.slice(0, 10);
+			case 'bottom':
+				return sortedRankings.slice(sortedRankings.length - 10, sortedRankings.length).reverse();
+			default:
+				return sortedRankings
+		};
+	};
+
+	const headingText = {
+		top: "Sexiest Pokemon",
+		bottom: "Least Sexy Pokemon",
+		all: "All Pokemon"
+	}
+	const rankingsToUse = getRankings(type);
 
 	return (
-		<>
-		<SexyCardHeading>Sexiest Pokemon {!isLoading && <img src={sync} alt="Refresh Rankings" onClick={refreshRankings}/>}</SexyCardHeading>
-		<SexyCard>
-		{isLoading && (
-			<LoadingWrapper>
-				<DotLoader
-					size={75}
-					color={"var(--red)"}
-					loading={true}
-				/>
-			</LoadingWrapper>
-		)}
-			{sexiest && <SexiestImage><img src={images[sexiest.id - 1].default} alt={sexiest.name} /></SexiestImage>}
-			{!isLoading && (
-				<>
-					{rankings
-							.sort((a, b) => b.ranking - a.ranking)
-							.slice(0, 10)
-							.map(({ name, ranking }, index) => {
+		<div>
+			<SexyCardHeading dark={dark}>{headingText[type]} {!isLoading && showRefresh && <img src={sync} alt="Refresh Rankings" onClick={refreshRankings}/>}</SexyCardHeading>
+			<SexyCard>
+			{isLoading && (
+				<LoadingWrapper>
+					<DotLoader
+						size={75}
+						color={"var(--red)"}
+						loading={true}
+					/>
+				</LoadingWrapper>
+			)}
+				{!isLoading && (
+					<>
+						<SexiestImage><img src={images[rankingsToUse[0].id - 1].default} alt={rankingsToUse[0].name} /></SexiestImage>
+						{rankingsToUse.map(({ name, ranking }, index) => {
 							if(index === 0){
 								return (
 								<li key={name}>
@@ -138,11 +144,11 @@ const SexiestWidget = () => {
 									<span>{index + 1}. {name}</span><Ranking>{ranking}pts</Ranking>
 								</li>
 							)
-					})}
-				</>
-			)}
-		</SexyCard>
-		</>
+						})}
+					</>
+				)}
+			</SexyCard>
+		</div>
 	)
 }
 
