@@ -53,6 +53,7 @@ const VoteButton = styled.button`
 	font-weight: 700;
 	font-family: 'Rubik';
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	transition: all 0.2s ease;
 
 	span {
 		display: none;
@@ -65,10 +66,13 @@ const VoteButton = styled.button`
 		}
 	}
 
+	&:hover {
+		filter: brightness(135%);
+	}
+
 	&:active {
 		background-color: var(--red);
 	}
-
 
 `
 

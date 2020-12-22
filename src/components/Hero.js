@@ -19,6 +19,16 @@ const Heading = styled.h1`
 	font-size: 28px;
 	text-shadow: 0px 1.46825px 0.367063px rgba(91, 11, 6, 0.87);
 
+	span {
+		font-family: "Niconne", cursive;
+		font-size: 58px;
+		font-weight: 500;
+
+		@media(min-width: 767px){
+			font-size: 8rem;
+		}
+	}
+
 	@media(min-width: 767px){
 		font-size: 4.5rem;
 		text-shadow: 0px 3px 0.367063px rgba(91, 11, 6, 0.87);
@@ -26,13 +36,14 @@ const Heading = styled.h1`
 `
 
 const Subtitle = styled.h2`
-	margin-top: 4px;
+	margin-top: -4px;
 	font-weight: 500;
 	color: var(--darkred);
 	font-size: 18px;
 
 	@media(min-width: 767px){
 		font-size: 2rem;
+		margin-top: -0.5rem;
 	}
 `
 
